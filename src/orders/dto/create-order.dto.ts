@@ -5,6 +5,12 @@ export class CreateOrderDto {
   address: string;
 
   @ApiProperty()
+  fullName: string;
+
+  @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
   products: {
     id: number;
   }[];

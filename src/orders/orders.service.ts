@@ -17,6 +17,8 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
     const order = new Order();
     order.address = createOrderDto.address;
+    order.fullName = createOrderDto.fullName;
+    order.phone = createOrderDto.phone;
     // TODO: look for ways to save faster
     order.products = await this.productRepository.findByIds(
       createOrderDto.products.map(({ id }) => id),

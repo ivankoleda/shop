@@ -15,6 +15,12 @@ export class Order {
   @Column()
   address: string;
 
+  @Column()
+  fullName: string;
+
+  @Column()
+  phone: string;
+
   @ManyToMany(type => Product)
   @JoinTable()
   products: Product[];
