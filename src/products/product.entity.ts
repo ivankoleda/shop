@@ -10,4 +10,13 @@ export class Product {
 
   @Column()
   price: number;
+
+  @Column()
+  country: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  countAvailable: number;
 }

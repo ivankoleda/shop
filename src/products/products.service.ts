@@ -15,6 +15,9 @@ export class ProductsService {
     const product = new Product();
     product.name = createUserDto.name;
     product.price = createUserDto.price;
+    product.country = createUserDto.country;
+    product.description = createUserDto.description;
+    product.countAvailable = createUserDto.countAvailable;
 
     return this.productsRepository.save(product);
   }

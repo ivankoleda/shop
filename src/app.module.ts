@@ -15,6 +15,7 @@ import { OrdersModule } from './orders/orders.module';
       database: 'shop',
       autoLoadEntities: true,
       synchronize: true,
+      keepConnectionAlive: true,
     }),
     ProductsModule,
     OrdersModule,

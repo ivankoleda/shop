@@ -6,4 +6,13 @@ export class CreateProductDto {
 
   @ApiProperty()
   price: number;
+
+  @ApiProperty()
+  country: string;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty()
+  countAvailable: number;
 }
