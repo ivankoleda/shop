@@ -5,6 +5,7 @@ import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
+    // TODO check if it is possible to get settings from ormconfig
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
