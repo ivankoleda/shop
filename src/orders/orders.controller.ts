@@ -7,11 +7,6 @@ import { CreateOrderDto } from './dto/create-order.dto';
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post()
-  create(@Body() createProductDto: CreateOrderDto): Promise<Order> {
-    return this.ordersService.create(createProductDto);
-  }
-
   @Get()
   findAll(): Promise<Order[]> {
     return this.ordersService.findAll();
@@ -20,5 +15,10 @@ export class OrdersController {
   @Get(':id')
   remove(@Param('id') id: string): Promise<Order> {
     return this.ordersService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() createProductDto: CreateOrderDto): Promise<Order> {
+    return this.ordersService.create(createProductDto);
   }
 }

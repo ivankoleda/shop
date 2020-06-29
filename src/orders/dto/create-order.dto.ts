@@ -11,7 +11,5 @@ export class CreateOrderDto {
   phone: string;
 
   @ApiProperty()
-  products: {
-    id: number;
-  }[];
+  orderProducts: { count: number; product: { id: number } }[];
 }
