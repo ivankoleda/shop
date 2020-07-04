@@ -42,7 +42,8 @@ export class Order {
   @AfterLoad()
   setComputed() {
     this.totalCost = this.orderProducts.reduce(
-      (sum, orderProduct) => sum + orderProduct.product.price,
+      (sum, orderProduct) =>
+        sum + orderProduct.product.price * orderProduct.count,
       0,
     );
   }

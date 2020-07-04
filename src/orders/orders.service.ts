@@ -51,7 +51,10 @@ export class OrdersService {
   }
 
   async findOne(id: string): Promise<Order> {
-    return this.orderRepository.findOne(id);
+    return this.orderRepository.findOne(id, {
+      relations: ['orderProducts', 'orderProducts.product'],
+      where: { user: { id } },
+    });
   }
 
   async findByUserId(id: string) {
