@@ -28,6 +28,7 @@ export class OrdersService {
     order.address = createOrderDto.address;
     order.fullName = createOrderDto.fullName;
     order.phone = createOrderDto.phone;
+    order.comment = createOrderDto.comment;
     // TODO: look for ways to save faster
 
     await this.orderRepository.save(order);
@@ -40,7 +41,7 @@ export class OrdersService {
         );
         // TODO add check if count more than amount
         orderProduct.count = orderProductDto.count;
-        orderProduct.order = { ...order };
+        orderProduct.order = Object.assign({}, order);
         orderProduct.product = product;
         return this.orderProductRepository.save(orderProduct);
       }),
@@ -55,6 +56,9 @@ export class OrdersService {
 
   async findByUserId(id: string) {
     // return this.orderRepository.find({ relations: ['user'] });
-    return this.orderRepository.find({ where: { user: { id } } });
+    return this.orderRepository.find({
+      relations: ['orderProducts', 'orderProducts.product'],
+      where: { user: { id } },
+    });
   }
 }

@@ -1,5 +1,6 @@
 import {
   Column,
+  AfterLoad,
   Entity,
   PrimaryGeneratedColumn,
   OneToMany,
@@ -23,6 +24,9 @@ export class Order {
   @Column()
   phone: string;
 
+  @Column()
+  comment: string;
+
   @OneToMany(
     type => OrderProduct,
     orderProduct => orderProduct.order,
@@ -32,4 +36,14 @@ export class Order {
   @ManyToOne(type => User, { nullable: false })
   @JoinColumn()
   user: User;
+
+  totalCost: number;
+
+  @AfterLoad()
+  setComputed() {
+    this.totalCost = this.orderProducts.reduce(
+      (sum, orderProduct) => sum + orderProduct.product.price,
+      0,
+    );
+  }
 }
