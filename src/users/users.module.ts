@@ -8,6 +8,7 @@ import { UsersService } from './users.service';
 import { SignInController } from './sign-in.controller';
 import { User } from './user.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { SignUpController } from './sign-up.controller';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     PassportModule,
   ],
 
-  controllers: [UsersController, SignInController],
+  controllers: [UsersController, SignInController, SignUpController],
   providers: [UsersService, JwtStrategy],
 })
 export class UsersModule {}

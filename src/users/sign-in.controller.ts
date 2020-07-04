@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { classToPlain } from 'class-transformer';
 import { SignInDto } from './dto/sign-in';
 import { UsersService } from './users.service';
-import { User } from './user.entity';
+import { AuthDto } from './dto/auth';
 
 @Controller('sign-in')
 export class SignInController {
@@ -13,9 +13,7 @@ export class SignInController {
   ) {}
 
   @Post()
-  async signIn(
-    @Body() signInDto: SignInDto,
-  ): Promise<{ accessToken: string; user: User }> {
+  async signIn(@Body() signInDto: SignInDto): Promise<AuthDto> {
     // should not be in the controller
     const user = await this.usersService.findByEmail(signInDto.email);
     const passwordIsCorrect = await user.comparePassword(signInDto.password);
