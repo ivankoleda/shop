@@ -1,15 +1,25 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { JwtAuthGuard } from '../users/guards/jwt-auth.guard';
 
 @Controller('orders')
+@UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Get()
-  findAll(): Promise<Order[]> {
-    return this.ordersService.findAll();
+  findByUserId(@Req() req: any): Promise<Order[]> {
+    return this.ordersService.findByUserId(req.user.id);
   }
 
   @Get(':id')
@@ -18,7 +28,10 @@ export class OrdersController {
   }
 
   @Post()
-  create(@Body() createProductDto: CreateOrderDto): Promise<Order> {
-    return this.ordersService.create(createProductDto);
+  create(
+    @Body() createProductDto: CreateOrderDto,
+    @Req() req: any,
+  ): Promise<Order> {
+    return this.ordersService.create(createProductDto, req.user.id);
   }
 }

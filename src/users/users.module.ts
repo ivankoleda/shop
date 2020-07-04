@@ -10,6 +10,8 @@ import { User } from './user.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { SignUpController } from './sign-up.controller';
 
+// filter orders by current user
+
 @Module({
   imports: [
     ConfigModule,
@@ -24,8 +26,8 @@ import { SignUpController } from './sign-up.controller';
     TypeOrmModule.forFeature([User]),
     PassportModule,
   ],
-
   controllers: [UsersController, SignInController, SignUpController],
   providers: [UsersService, JwtStrategy],
+  exports: [TypeOrmModule.forFeature([User])],
 })
 export class UsersModule {}

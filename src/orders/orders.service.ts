@@ -5,6 +5,7 @@ import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Product } from '../products/product.entity';
 import { OrderProduct } from './order-product.entity';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class OrdersService {
@@ -15,10 +16,15 @@ export class OrdersService {
     private readonly productRepository: Repository<Product>,
     @InjectRepository(OrderProduct)
     private readonly orderProductRepository: Repository<OrderProduct>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+  async create(createOrderDto: CreateOrderDto, userId: string): Promise<Order> {
+    const user = await this.userRepository.findOne(userId);
+
     const order = new Order();
+    order.user = user;
     order.address = createOrderDto.address;
     order.fullName = createOrderDto.fullName;
     order.phone = createOrderDto.phone;
@@ -43,11 +49,12 @@ export class OrdersService {
     return order;
   }
 
-  async findAll(): Promise<Order[]> {
-    return this.orderRepository.find();
-  }
-
   async findOne(id: string): Promise<Order> {
     return this.orderRepository.findOne(id);
+  }
+
+  async findByUserId(id: string) {
+    // return this.orderRepository.find({ relations: ['user'] });
+    return this.orderRepository.find({ where: { user: { id } } });
   }
 }

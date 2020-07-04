@@ -1,5 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { OrderProduct } from './order-product.entity';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Order {
@@ -20,4 +28,8 @@ export class Order {
     orderProduct => orderProduct.order,
   )
   orderProducts: OrderProduct[];
+
+  @ManyToOne(type => User, { nullable: false })
+  @JoinColumn()
+  user: User;
 }
