@@ -30,6 +30,7 @@ export class Order {
   @OneToMany(
     type => OrderProduct,
     orderProduct => orderProduct.order,
+    { nullable: false },
   )
   orderProducts: OrderProduct[];
 

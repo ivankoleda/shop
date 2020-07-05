@@ -7,16 +7,13 @@ export class OrderProduct {
   @Column()
   count: number;
 
-  // @Column()
-  // price: number;
-
   @ManyToOne(
     type => Order,
     order => order.orderProducts,
-    { primary: true },
+    { primary: true, nullable: false },
   )
   order: Order;
 
-  @ManyToOne(type => Product, undefined, { primary: true })
+  @ManyToOne(type => Product, undefined, { primary: true, nullable: false })
   product: Product;
 }
