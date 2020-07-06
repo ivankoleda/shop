@@ -15,4 +15,7 @@ export class CreateProductDto {
 
   @ApiProperty()
   countAvailable: number;
+
+  @ApiProperty()
+  imageUrl: string;
 }

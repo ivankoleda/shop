@@ -11,13 +11,14 @@ export class ProductsService {
     private readonly productsRepository: Repository<Product>,
   ) {}
 
-  async create(createUserDto: CreateProductDto): Promise<Product> {
+  async create(createProductDto: CreateProductDto): Promise<Product> {
     const product = new Product();
-    product.name = createUserDto.name;
-    product.price = createUserDto.price;
-    product.country = createUserDto.country;
-    product.description = createUserDto.description;
-    product.countAvailable = createUserDto.countAvailable;
+    product.name = createProductDto.name;
+    product.price = createProductDto.price;
+    product.country = createProductDto.country;
+    product.description = createProductDto.description;
+    product.countAvailable = createProductDto.countAvailable;
+    product.imageUrl = createProductDto.imageUrl;
 
     return this.productsRepository.save(product);
   }
