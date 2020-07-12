@@ -6,4 +6,4 @@ items:
     country: '{{address.country}}'
     description: '{{commerce.productAdjective}}'
     countAvailable: '{{random.number}}'
-    image: '{{image.nature}}'
+    imageUrl: '{{image.nature}}'
