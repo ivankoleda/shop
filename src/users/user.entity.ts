@@ -25,6 +25,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column('simple-array')
+  roles: string[];
+
   @BeforeInsert()
   async generate() {
     const salt = await genSalt(10);

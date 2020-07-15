@@ -1,7 +1,15 @@
 entity: User
 items:
-  user:
+  buyer:
     firstName: 'John'
     lastName: 'Doe'
     email: 'mail@mail.com'
     password: "123456"
+    roles: ['customer']
+  admin:
+    firstName: 'John'
+    lastName: 'Doe'
+    email: 'admin@admin.com'
+    password: "QBX5vruesc"
+    roles: ['admin']
+

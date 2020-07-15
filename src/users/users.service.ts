@@ -17,17 +17,12 @@ export class UsersService {
     user.lastName = signUpDto.lastName;
     user.email = signUpDto.email;
     user.password = signUpDto.password;
+    user.roles = ['customer'];
 
     return this.userRepository.save(user);
   }
 
   async findAll(): Promise<User[]> {
-    const user = new User();
-    // user.firstName = 'Ivan';
-    // user.lastName = 'Koleda';
-    // user.email = 'qweqwe@gmail.com';
-    // user.password = 'password';
-    // this.userRepository.save(user);
     return this.userRepository.find();
   }
 
