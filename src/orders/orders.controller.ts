@@ -11,11 +11,20 @@ import { OrdersService } from './orders.service';
 import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { JwtAuthGuard } from '../users/guards/jwt-auth.guard';
+import { RolesGuard } from '../users/guards/roles.guard';
+import { Roles } from '../users/decorators/roles.decorator';
 
 @Controller('orders')
 @UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
+
+  @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
+  findAll(): Promise<Order[]> {
+    return this.ordersService.findAll();
+  }
 
   @Get()
   findByUserId(@Req() req: any): Promise<Order[]> {

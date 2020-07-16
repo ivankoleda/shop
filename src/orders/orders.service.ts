@@ -20,6 +20,17 @@ export class OrdersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
+  async findAll(): Promise<Order[]> {
+    return await this.orderRepository.find();
+  }
+
+  async findOne(id: string): Promise<Order> {
+    return this.orderRepository.findOne(id, {
+      relations: ['orderProducts', 'orderProducts.product'],
+      where: { id },
+    });
+  }
+
   async create(createOrderDto: CreateOrderDto, userId: string): Promise<Order> {
     const user = await this.userRepository.findOne(userId);
 
@@ -48,13 +59,6 @@ export class OrdersService {
     );
 
     return order;
-  }
-
-  async findOne(id: string): Promise<Order> {
-    return this.orderRepository.findOne(id, {
-      relations: ['orderProducts', 'orderProducts.product'],
-      where: { id },
-    });
   }
 
   async findByUserId(id: string) {
