@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -13,6 +14,7 @@ import { RolesGuard } from '../users/guards/roles.guard';
 import { Product } from './product.entity';
 import { ProductsService } from './products.service';
 import { JwtAuthGuard } from '../users/guards/jwt-auth.guard';
+import { EditProductDto } from './dto/edit-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -33,6 +35,13 @@ export class ProductsController {
   @Roles('admin')
   create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productsService.create(createProductDto);
+  }
+
+  @Put(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
+  edit(@Body() editProductDto: EditProductDto): Promise<Product> {
+    return this.productsService.edit(editProductDto);
   }
 
   @Delete(':id')

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
+import { EditProductDto } from './dto/edit-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -11,15 +12,27 @@ export class ProductsService {
     private readonly productsRepository: Repository<Product>,
   ) {}
 
+  private setProductFields = (
+    product: Product,
+    productDto: CreateProductDto,
+  ) => {
+    product.name = productDto.name;
+    product.price = productDto.price;
+    product.country = productDto.country;
+    product.description = productDto.description;
+    product.countAvailable = productDto.countAvailable;
+    product.imageUrl = productDto.imageUrl;
+  };
+
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const product = new Product();
-    product.name = createProductDto.name;
-    product.price = createProductDto.price;
-    product.country = createProductDto.country;
-    product.description = createProductDto.description;
-    product.countAvailable = createProductDto.countAvailable;
-    product.imageUrl = createProductDto.imageUrl;
+    this.setProductFields(product, createProductDto);
+    return this.productsRepository.save(product);
+  }
 
+  async edit(editProductDto: EditProductDto): Promise<Product> {
+    const product = await this.productsRepository.findOne(editProductDto.id);
+    this.setProductFields(product, editProductDto);
     return this.productsRepository.save(product);
   }
 
