@@ -8,7 +8,7 @@
   "scripts": {
     "fixtures": "fixtures ./fixtures",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "nest build && npm run fixtures",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/main",
     "start:dev": "nest start",
