@@ -25,6 +25,7 @@ const getDbConnectionConfig = () =>
       autoLoadEntities: true,
       synchronize: true,
       keepConnectionAlive: true,
+      logging: true,
       ...getDbConnectionConfig(),
     }),
     ProductsModule,
