@@ -21,13 +21,12 @@ export class OrdersController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
-  findAll(): Promise<Order[]> {
-    return this.ordersService.findAll();
-  }
+  @Roles('admin', 'customer')
+  findAll(@Req() req: any): Promise<Order[]> {
+    if (req.user.roles.includes('admin')) {
+      return this.ordersService.findAll();
+    }
 
-  @Get()
-  findByUserId(@Req() req: any): Promise<Order[]> {
     return this.ordersService.findByUserId(req.user.id);
   }
 
