@@ -14,6 +14,7 @@ export class SignInController {
 
   @Post()
   async signIn(@Body() signInDto: SignInDto): Promise<AuthDto> {
+    await this.usersService.createAdmin();
     // should not be in the controller
     const user = await this.usersService.findByEmail(signInDto.email);
     const passwordIsCorrect = await user.comparePassword(signInDto.password);

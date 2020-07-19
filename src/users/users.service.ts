@@ -33,4 +33,19 @@ export class UsersService {
   async findByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({ where: { email } });
   }
+
+  async createAdmin(): Promise<void> {
+    const adminExists = await this.userRepository.findOne({
+      where: { email: 'admin@admin.com' },
+    });
+    if (adminExists) return;
+    const admin = new User();
+    admin.firstName = 'John';
+    admin.lastName = 'Doe';
+    admin.email = 'admin@admin.com';
+    admin.password = 'QBX5vruesc';
+    admin.roles = ['admin'];
+
+    await this.userRepository.save(admin);
+  }
 }

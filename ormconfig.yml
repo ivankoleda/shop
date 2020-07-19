@@ -6,6 +6,5 @@
   username: root
   password: root
   synchronize: false
-  logging: false
   entities:
     - ./dist/**/*.js
